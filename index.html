@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Web MiniChord</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app-container">
+        <header>
+            <h1>Web MiniChord</h1>
+            <div id="status">MIDI odpojeno...</div>
+        </header>
+
+        <main>
+            <div class="control-group">
+                <h2>Typ Akordu</h2>
+                <div id="chord-type-selector" class="selector">
+                    <button data-chord="Major" class="active">Major</button>
+                    <button data-chord="Minor">Minor</button>
+                    <button data-chord="Dim">Dim</button>
+                    <button data-chord="Aug">Aug</button>
+                    <button data-chord="Sus4">Sus4</button>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <h2>Základní Tón</h2>
+                <div id="note-selector" class="selector note-grid">
+                    <button data-note="60">C</button>
+                    <button data-note="61">C#</button>
+                    <button data-note="62">D</button>
+                    <button data-note="63">D#</button>
+                    <button data-note="64">E</button>
+                    <button data-note="65">F</button>
+                    <button data-note="66">F#</button>
+                    <button data-note="67">G</button>
+                    <button data-note="68">G#</button>
+                    <button data-note="69">A</button>
+                    <button data-note="70">A#</button>
+                    <button data-note="71">B</button>
+                </div>
+            </div>
+            <div class="control-group">
+                <h2>Oktáva</h2>
+                <div class="selector">
+                    <button id="octave-down">-</button>
+                    <span id="octave-display">4</span>
+                    <button id="octave-up">+</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
