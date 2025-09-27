@@ -1,70 +1,115 @@
 ﻿:root {
     --bg-color: #1a1a1a;
-    --primary-color: #2a2a2a;
+    --panel-bg: #252525;
     --accent-color: #007bff;
     --text-color: #f0f0f0;
-    --active-color: #28a745;
+    --knob-color: #d1d1d1;
+    --knob-indicator: var(--accent-color);
 }
 
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    margin: 0;
-    padding: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+* {
+    box-sizing: border-box;
+    user-select: none; /* Zabrání označování textu */
     -webkit-tap-highlight-color: transparent; /* Vypne modré zvýraznění při klepnutí */
 }
 
-#app-container {
+html, body {
     width: 100%;
-    max-width: 500px;
+    height: 100%;
+    overflow: hidden; /* Zabrání posouvání stránky */
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    overscroll-behavior: none; /* Zabrání "pull-to-refresh" */
+}
+
+#app-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
 }
 
 header {
     text-align: center;
-    margin-bottom: 20px;
+    padding-bottom: 5px;
+}
+
+.title {
+    margin: 0;
+    font-size: 1.2em;
 }
 
 #status {
-    font-size: 0.9em;
+    font-size: 0.8em;
     color: #888;
+    height: 15px;
+}
+
+#app-container {
+    flex-grow: 1;
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    height: calc(100% - 40px);
+}
+
+/* Panely a jejich rozložení */
+.panel {
+    background-color: var(--panel-bg);
+    border-radius: 12px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.panel-left {
+    flex: 3;
+}
+
+.panel-middle {
+    flex: 2;
+}
+
+.panel-right {
+    flex: 4;
 }
 
 .control-group {
-    background-color: var(--primary-color);
-    padding: 15px;
-    border-radius: 12px;
-    margin-bottom: 15px;
+    background-color: #333;
+    padding: 10px;
+    border-radius: 8px;
 }
 
-h2 {
-    margin-top: 0;
-    font-size: 1em;
-    text-transform: uppercase;
-    color: #aaa;
-}
+    .control-group h2 {
+        margin: 0 0 10px 0;
+        font-size: 0.8em;
+        text-transform: uppercase;
+        color: #aaa;
+        text-align: center;
+    }
 
+/* Tlačítka */
 .selector {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 5px;
 }
 
     .selector button {
         flex-grow: 1;
-        padding: 15px 10px;
-        font-size: 1.1em;
+        padding: 10px 5px;
+        font-size: 1em;
         font-weight: bold;
-        background-color: #333;
+        background-color: #444;
         color: var(--text-color);
         border: none;
-        border-radius: 8px;
+        border-radius: 6px;
         cursor: pointer;
-        transition: background-color 0.2s, transform 0.1s;
     }
 
         .selector button:active {
@@ -73,19 +118,95 @@ h2 {
 
         .selector button.active {
             background-color: var(--accent-color);
-            color: white;
         }
 
 .note-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
 }
 
 #octave-display {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5em;
-    font-weight: bold;
-    flex-grow: 2;
+    font-size: 1.2em;
+    padding: 0 10px;
+}
+
+/* Otočné knobíky */
+.knob-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding: 10px 0;
+}
+
+.knob-container {
+    text-align: center;
+}
+
+    .knob-container label {
+        font-size: 0.8em;
+    }
+
+.knob {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--knob-color);
+    margin: 5px auto;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5) inset;
+    cursor: ns-resize;
+}
+
+    .knob::after { /* Indikátor pozice */
+        content: '';
+        position: absolute;
+        width: 4px;
+        height: 12px;
+        background-color: var(--knob-indicator);
+        border-radius: 2px;
+        top: 5px;
+        left: 50%;
+        transform: translateX(-50%);
+        transform-origin: 50% 20px;
+    }
+
+/* Melodická ploška */
+.melody-pad-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#melody-pad {
+    width: 100%;
+    height: 100%; /* Vyplní zbytek panelu */
+    background: linear-gradient(to bottom, #3a3a3a, #4a4a4a);
+    border-radius: 6px;
+    cursor: crosshair;
+    touch-action: none; /* Zabrání výchozím akcím dotyku */
+}
+
+/* Rozložení na šířku */
+@media (orientation: landscape) {
+    #app-container {
+        flex-direction: row;
+    }
+}
+
+/* Rozložení na výšku */
+@media (orientation: portrait) {
+    #app-container {
+        flex-direction: column;
+    }
+
+    .panel-left, .panel-middle, .panel-right {
+        flex-basis: auto;
+    }
+
+    .knob-section {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }

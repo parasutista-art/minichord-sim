@@ -3,54 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Web MiniChord</title>
+    <title>Web Synth</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/lil-gui@0.19.1/dist/lil-gui.umd.min.js"></script>
 </head>
 <body>
-    <div id="app-container">
+    <div id="app-wrapper">
         <header>
-            <h1>Web MiniChord</h1>
-            <div id="status">MIDI odpojeno...</div>
+            <h1 class="title">Web Synth</h1>
+            <div id="status">Inicializace...</div>
         </header>
 
-        <main>
-            <div class="control-group">
-                <h2>Typ Akordu</h2>
-                <div id="chord-type-selector" class="selector">
-                    <button data-chord="Major" class="active">Major</button>
-                    <button data-chord="Minor">Minor</button>
-                    <button data-chord="Dim">Dim</button>
-                    <button data-chord="Aug">Aug</button>
-                    <button data-chord="Sus4">Sus4</button>
+        <div id="app-container">
+            <div class="panel panel-left">
+                <div class="control-group">
+                    <h2>Akord</h2>
+                    <div id="chord-type-selector" class="selector">
+                        <button data-chord="Major" class="active">Maj</button>
+                        <button data-chord="Minor">min</button>
+                        <button data-chord="Dim">dim</button>
+                        <button data-chord="Aug">aug</button>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div id="note-selector" class="selector note-grid">
+                        <button data-note="60">C</button><button data-note="61">C#</button>
+                        <button data-note="62">D</button><button data-note="63">D#</button>
+                        <button data-note="64">E</button><button data-note="65">F</button>
+                        <button data-note="66">F#</button><button data-note="67">G</button>
+                        <button data-note="68">G#</button><button data-note="69">A</button>
+                        <button data-note="70">A#</button><button data-note="71">B</button>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <h2>Oktáva</h2>
+                    <div class="selector">
+                        <button id="octave-down">-</button>
+                        <span id="octave-display">4</span>
+                        <button id="octave-up">+</button>
+                    </div>
                 </div>
             </div>
 
-            <div class="control-group">
-                <h2>Základní Tón</h2>
-                <div id="note-selector" class="selector note-grid">
-                    <button data-note="60">C</button>
-                    <button data-note="61">C#</button>
-                    <button data-note="62">D</button>
-                    <button data-note="63">D#</button>
-                    <button data-note="64">E</button>
-                    <button data-note="65">F</button>
-                    <button data-note="66">F#</button>
-                    <button data-note="67">G</button>
-                    <button data-note="68">G#</button>
-                    <button data-note="69">A</button>
-                    <button data-note="70">A#</button>
-                    <button data-note="71">B</button>
+            <div class="panel panel-middle">
+                <div class="control-group">
+                    <h2>Synth Preset</h2>
+                    <div id="synth-preset-selector" class="selector">
+                        <button data-preset="Saw" class="active">Saw</button>
+                        <button data-preset="Sine">Sine</button>
+                        <button data-preset="Square">Square</button>
+                        <button data-preset="FM">FM</button>
+                    </div>
+                </div>
+                <div class="knob-section">
+                    <div class="knob-container">
+                        <div class="knob" data-control="cutoff"></div>
+                        <label>Cutoff</label>
+                    </div>
+                    <div class="knob-container">
+                        <div class="knob" data-control="resonance"></div>
+                        <label>Reso</label>
+                    </div>
+                    <div class="knob-container">
+                        <div class="knob" data-control="delay"></div>
+                        <label>Delay</label>
+                    </div>
+                    <div class="knob-container">
+                        <div class="knob" data-control="reverb"></div>
+                        <label>Reverb</label>
+                    </div>
                 </div>
             </div>
-            <div class="control-group">
-                <h2>Oktáva</h2>
-                <div class="selector">
-                    <button id="octave-down">-</button>
-                    <span id="octave-display">4</span>
-                    <button id="octave-up">+</button>
+
+            <div class="panel panel-right">
+                <div class="control-group melody-pad-container">
+                    <h2>Melodie</h2>
+                    <canvas id="melody-pad"></canvas>
                 </div>
             </div>
-        </main>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
